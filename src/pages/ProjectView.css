@@ -1,0 +1,95 @@
+/* ─── Shell ──────────────────────────────────────── */
+.pv-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--bg);
+}
+
+/* ─── Nav ────────────────────────────────────────── */
+.pv-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  animation: slide-down 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pv-back {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.pv-back:hover {
+  color: var(--amber);
+}
+
+.pv-nav-title {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pv-nav-slug {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* ─── Content ────────────────────────────────────── */
+.pv-content {
+  overflow: auto;
+}
+
+/* ─── States ─────────────────────────────────────── */
+.pv-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.pv-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 100vh;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.pv-not-found code {
+  color: var(--amber);
+  font-family: var(--mono);
+}
+
+/* ─── Keyframes ──────────────────────────────────── */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
