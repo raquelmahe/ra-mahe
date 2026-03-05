@@ -64,7 +64,7 @@ Each prototype in `src/projects/` is:
 
 - [Vite 6](https://vitejs.dev) + [React 18](https://react.dev)
 - [React Router](https://reactrouter.com)
-- [Backpack](https://backpack.github.io) — Skyscanner's design system (`@skyscanner/backpack-web`)
+- [Backpack](https://backpack.github.io) — Skyscanner's design system, pre-installed via `@skyscanner/backpack-web`
 - [backpack-cli](https://github.com/Skyscanner/backpack-cli) — AI agent tool for discovering Backpack components and tokens
 
 ---

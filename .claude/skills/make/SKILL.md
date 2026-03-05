@@ -51,14 +51,7 @@ npm install -g @skyscanner/backpack-cli
 backpack-cli update
 ```
 
-## Step 4 — Install Backpack web (if not already present)
-
-Check `package.json`. If `@skyscanner/backpack-web` is absent:
-```bash
-npm install @skyscanner/backpack-web
-```
-
-## Step 5 — Generate the prototype files
+## Step 4 — Generate the prototype files
 
 Create exactly two files:
 
