@@ -3,6 +3,8 @@
 A Figma Make-style prototyping tool for Skyscanner product designers.
 Describe an idea in plain English → Claude generates a working prototype using the [Backpack](https://backpack.github.io) design system → it's instantly live at a shareable sub-route.
 
+![Skyscanner Make homepage showing a gallery of generated prototypes](public/screenshot-homepage.png)
+
 ---
 
 ## How it works
