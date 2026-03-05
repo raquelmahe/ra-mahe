@@ -140,6 +140,8 @@ backpack-cli tokens --search "rgb(0, 98, 227)"
 
 ## Important notes
 
+- **`--categories` counts include private tokens**: `backpack-cli tokens --categories` shows a count for every category, but some categories (e.g. `badge-colors`) only contain private tokens. Running `--category badge-colors --json` returns `[]` unless you also pass `--private`. Don't assume a category has usable tokens just because the count is non-zero.
+- **Spacing JS imports are inaccurate**: The `token` command claims `spacingBase`, `spacingLg` etc. have a JS import path (`import { spacingBase } from '...'`), but these named exports do not exist in the installed package — only `spacingNone` and `spacingIconText` are individually exported. The spacing scale tokens are SCSS-function–only. Use their raw `value` field directly (e.g. `'1rem'` for `spacingBase`, `'1.5rem'` for `spacingLg`).
 - **Day-only by default**: Only day-mode tokens are shown. Night tokens are filtered out.
 - **Private tokens hidden by default**: Use `--private` to include them or `--only-private` to see only them. A warning is displayed reminding you that private tokens should never be used directly — only as reference for finding a suitable public replacement.
 - **Deprecated tokens**: Marked with `[DEPRECATED]` in output. Avoid using these in new code.

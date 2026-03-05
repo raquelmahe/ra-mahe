@@ -172,12 +172,25 @@ backpack-cli update --dry-run
 
 The update command clones the Backpack repository and the backpack-foundations repository, extracts component metadata, prop types, icon files, and design tokens, and regenerates the local cache.
 
+## Import style: default vs named exports
+
+The CLI's `ls` and `props` commands report `importPath` but do not indicate whether the primary component is a default or named export. The actual pattern:
+
+- **Default export** (no braces) — most components: `BpkButton`, `BpkText`, `BpkCard`, `BpkBadge`, `BpkModal`, `BpkRating`, `BpkSectionHeader`, and most others. Constants are **additional named exports** alongside the default:
+  ```tsx
+  import BpkButton, { BUTTON_TYPES, SIZE_TYPES } from '@skyscanner/backpack-web/bpk-component-button';
+  import BpkBadge, { BADGE_TYPES } from '@skyscanner/backpack-web/bpk-component-badge';
+  import BpkRating, { RATING_SIZES, RATING_SCALES } from '@skyscanner/backpack-web/bpk-component-rating';
+  ```
+- **Named export only** (braces required) — exceptions: `BpkProvider`, `BpkFlex`, `BpkStack`, `BpkBox`, `BpkGrid` (all from `bpk-component-layout`); `BpkSpinner`, `BpkLargeSpinner` (from `bpk-component-spinner`).
+- **`bpk-component-chip`** — `BpkSelectableChip` is the default; `BpkDismissibleChip`, `BpkDropdownChip`, `BpkIconChip` are named.
+
 ## BpkProvider
 
 `BpkProvider` must wrap the top-level component in your application. Use it exactly once, as high as possible in the component tree. All Backpack layout components (e.g., `BpkPageContainer`, `BpkGridContainer`, `BpkGridRow`, `BpkGridColumn`) require `BpkProvider` to be present above them. Do not nest multiple `BpkProvider` instances — a single root-level wrapper is correct.
 
 ```tsx
-import BpkProvider from '@skyscanner/backpack-web/bpk-component-provider';
+import { BpkProvider } from '@skyscanner/backpack-web/bpk-component-layout';
 
 function App() {
   return (
