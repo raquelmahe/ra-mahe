@@ -94,7 +94,7 @@ export default function MyIdea() {
 }
 ```
 
-## Step 6 — Confirm
+## Step 5 — Confirm
 
 Tell the user:
 
