@@ -6,16 +6,23 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@skyscanner/backpack-web": "^41.18.0",
+    "@skyscanner/bpk-foundations-web": "^24.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "playwright": "^1.58.2",
+    "sass": "^1.97.3",
+    "typescript": "^5.9.3",
     "vite": "^6.0.5"
   }
 }

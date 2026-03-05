@@ -1,14 +1,21 @@
 import { Suspense, lazy, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import './ProjectView.css'
+import './ProjectView.scss'
 
-const projectModules = import.meta.glob('../projects/*/index.jsx')
-const metaModules = import.meta.glob('../projects/*/meta.json', { eager: true })
+interface ProjectMeta {
+  slug: string
+  title: string
+  description: string
+  createdAt: string
+}
+
+const projectModules = import.meta.glob<{ default: React.ComponentType }>('../projects/*/index.tsx')
+const metaModules = import.meta.glob<ProjectMeta>('../projects/*/meta.json', { eager: true })
 
 export default function ProjectView() {
   const { slug } = useParams()
 
-  const moduleKey = `../projects/${slug}/index.jsx`
+  const moduleKey = `../projects/${slug}/index.tsx`
   const metaKey = `../projects/${slug}/meta.json`
 
   const meta = metaModules[metaKey]

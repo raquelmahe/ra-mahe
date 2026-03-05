@@ -1,0 +1,98 @@
+@use '@skyscanner/backpack-web/bpk-mixins/tokens' as tokens;
+
+/* ─── Shell ──────────────────────────────────────── */
+.pv-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: tokens.$bpk-surface-low-contrast-day;
+}
+
+/* ─── Nav ────────────────────────────────────────── */
+.pv-nav {
+  display: flex;
+  align-items: center;
+  gap: tokens.bpk-spacing-xl();
+  padding: 0 tokens.bpk-spacing-xl();
+  height: 56px;
+  background: tokens.$bpk-surface-contrast-day;
+  border-bottom: none;
+  box-shadow: 0 tokens.$bpk-border-size-sm 0 rgba(255, 255, 255, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  animation: slide-down 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pv-back {
+  font-family: tokens.$bpk-font-family-base;
+  font-size: tokens.$bpk-font-size-xs;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    color: tokens.$bpk-text-on-dark-day;
+  }
+}
+
+.pv-nav-title {
+  font-family: tokens.$bpk-font-family-base;
+  font-size: tokens.$bpk-font-size-base;
+  font-weight: 600;
+  color: tokens.$bpk-text-on-dark-day;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pv-nav-slug {
+  font-family: tokens.$bpk-font-family-base;
+  font-size: tokens.$bpk-font-size-xs;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+/* ─── Content ────────────────────────────────────── */
+.pv-content {
+  overflow: auto;
+}
+
+/* ─── States ─────────────────────────────────────── */
+.pv-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  font-family: tokens.$bpk-font-family-base;
+  font-size: tokens.$bpk-font-size-xs;
+  letter-spacing: 0.06em;
+  color: tokens.$bpk-text-secondary-day;
+}
+
+.pv-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: tokens.bpk-spacing-base();
+  min-height: 100vh;
+  font-size: tokens.$bpk-font-size-sm;
+  color: tokens.$bpk-text-secondary-day;
+
+  code {
+    color: tokens.$bpk-core-accent-day;
+    font-family: tokens.$bpk-font-family-base;
+  }
+}
+
+/* ─── Keyframes ──────────────────────────────────── */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
