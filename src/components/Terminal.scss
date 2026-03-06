@@ -29,7 +29,7 @@
   line-height: tokens.$bpk-line-height-base;
 }
 
-.t-prompt { color: rgba(255, 255, 255, 0.35); }
-.t-cmd    { color: #7ab4ff; font-weight: 600; }
-.t-out    { color: #4ade80; }
-.t-muted  { color: rgba(255, 255, 255, 0.3); }
+.t-prompt { color: tokens.$bpk-text-secondary-day; }
+.t-cmd    { color: tokens.$bpk-text-primary-day; font-weight: 600; }
+.t-out    { color: tokens.$bpk-status-success-spot-day; }
+.t-muted  { color: tokens.$bpk-text-secondary-day; }
