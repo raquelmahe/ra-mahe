@@ -28,7 +28,9 @@ From the description, determine:
 
 ## Step 3 — Discover Backpack components & tokens
 
-Use `backpack-cli` to understand what's available before you generate anything. Run the commands most relevant to the idea:
+First, activate the **backpack-build** skill (use `Skill("backpack-build")`) to load the full Backpack design system reference — component selection guidance, layout patterns, typography rules, anti-patterns, and accessibility requirements. This skill is your primary reference for *how* to build with Backpack.
+
+Then use the **backpack-cli** skill (use `Skill("backpack-cli")`) to get in-depth design system knowledge — discover specific components, inspect their props, browse icons, and look up exact token values. Run the commands most relevant to the idea:
 
 ```bash
 # Find components that match the idea
@@ -58,6 +60,8 @@ backpack-cli update
 ```
 
 ## Step 4 — Generate the prototype files
+
+**Important:** Follow the guidance from the **backpack-build** skill loaded in Step 3. Consult it for component selection (use Backpack components over custom HTML), layout patterns (`BpkStack`, `BpkFlex`, `BpkBox`), typography (`BpkText`), anti-patterns to avoid, and accessibility requirements. Use **backpack-cli** to verify props and token values for any component you're unsure about.
 
 ### File structure
 
