@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BpkCard from '@skyscanner/backpack-web/bpk-component-card'
 import BpkPanel from '@skyscanner/backpack-web/bpk-component-panel'
+import BpkText, { TEXT_STYLES } from '@skyscanner/backpack-web/bpk-component-text'
 import './Home.scss'
 
 interface ProjectMeta {
@@ -48,7 +49,7 @@ function CardThumb({ slug, title }: CardThumbProps) {
         background: `linear-gradient(135deg, hsl(${hue} 70% 20%) 0%, hsl(${hue} 60% 35%) 100%)`,
       }}
     >
-      <span className="card-thumb-letter">{letter}</span>
+      <BpkText tagName="span" textStyle={TEXT_STYLES.label1}>{letter}</BpkText>
     </div>
   )
 }
@@ -58,15 +59,15 @@ function InstructionsPanel() {
     <BpkPanel padded={false} className="instructions-panel">
       <div className="instructions-header">
         <span className="instructions-icon">✦</span>
-        <span className="instructions-label">Add a new idea</span>
+        <BpkText tagName="span" textStyle={TEXT_STYLES.label1}>Add a new idea</BpkText>
       </div>
 
-      <p className="instructions-body">
+      <BpkText tagName="p" textStyle={TEXT_STYLES.bodyDefault}>
         Open Claude in this repo and run <code>/make</code>. Describe
         your idea in plain English — Claude will discover the right
         Backpack components, generate a self-contained prototype, and
         add it to this gallery automatically.
-      </p>
+      </BpkText>
 
       <div className="instructions-terminal">
         <div className="terminal-dots">
@@ -90,7 +91,7 @@ function InstructionsPanel() {
       </div>
 
       <div className="instructions-tips">
-        <p className="tips-heading">Tips for great results</p>
+        <BpkText tagName="p" textStyle={TEXT_STYLES.label2}>Tips for great results</BpkText>
         <ul className="tips-list">
           <li>Name the screen type <em>(homepage, results, checkout)</em></li>
           <li>Mention the vertical <em>(flights, hotels, cars)</em></li>
@@ -111,11 +112,11 @@ export default function Home() {
               <path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5L12 2Z" fill="currentColor" />
             </svg>
           </div>
-          <span className="home-logo-name">Skyscanner Make</span>
+          <BpkText tagName="span" textStyle={TEXT_STYLES.heading5} color="text-on-dark">Skyscanner Make</BpkText>
         </div>
         <div className="home-header-badge">
           <span className="badge-dot" />
-          internal prototyping tool
+          <BpkText tagName="span" textStyle={TEXT_STYLES.caption}>internal prototyping tool</BpkText>
         </div>
       </header>
 
@@ -127,14 +128,17 @@ export default function Home() {
                 <path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5L12 2Z" fill="currentColor" />
               </svg>
             </div>
-            <h1 className="empty-heading">
+            
+            <BpkText tagName="h1" textStyle={TEXT_STYLES.heading1}>
               No prototypes yet.<br />
-              <em>Start making.</em>
-            </h1>
-            <p className="empty-sub">
+              <BpkText tagName="span" textStyle={TEXT_STYLES.heading1} color="text-hero">
+                Start making.
+              </BpkText>
+            </BpkText>
+            <BpkText tagName="p" textStyle={TEXT_STYLES.bodyDefault}>
               Open Claude in this repo and run <code>/make</code> to build
               your first Backpack-powered prototype.
-            </p>
+            </BpkText>
             <div className="empty-terminal">
               <div className="terminal-dots">
                 <span className="dot red" />
@@ -154,8 +158,8 @@ export default function Home() {
           <div className="ideas-layout">
             <div className="ideas-col">
               <div className="ideas-header">
-                <h2 className="ideas-heading">Prototypes</h2>
-                <span className="ideas-count">{projects.length}</span>
+                <BpkText tagName="h2" textStyle={TEXT_STYLES.heading3}>Prototypes</BpkText>
+                <BpkText tagName="span" textStyle={TEXT_STYLES.caption}>{projects.length}</BpkText>
               </div>
 
               <div className="ideas-grid">
@@ -164,17 +168,17 @@ export default function Home() {
                     <BpkCard padded={false} atomic={false} className="idea-card">
                       <CardThumb slug={p.slug} title={p.title} />
                       <div className="idea-card-body">
-                        <h3 className="idea-title">{p.title}</h3>
-                        <p className="idea-desc">{p.description}</p>
+                        <BpkText tagName="h3" textStyle={TEXT_STYLES.heading5}>{p.title}</BpkText>
+                        <BpkText tagName="p" textStyle={TEXT_STYLES.bodyDefault}>{p.description}</BpkText>
                         <div className="idea-footer">
-                          <span className="idea-date">
+                          <BpkText tagName="span" textStyle={TEXT_STYLES.caption}>
                             {new Date(p.createdAt).toLocaleDateString('en-GB', {
                               day: 'numeric',
                               month: 'short',
                               year: 'numeric',
                             })}
-                          </span>
-                          <span className="idea-arrow">→</span>
+                          </BpkText>
+                          <BpkText tagName="span" textStyle={TEXT_STYLES.caption}>→</BpkText>
                         </div>
                       </div>
                     </BpkCard>
@@ -189,10 +193,10 @@ export default function Home() {
       </main>
 
       <footer className="home-footer">
-        <span className="footer-logo">Skyscanner Make</span>
+        <BpkText tagName="span" textStyle={TEXT_STYLES.label2}>Skyscanner Make</BpkText>
         <span className="footer-divider" />
-        <span>Internal design prototyping</span>
-        <span className="footer-end">{new Date().getFullYear()}</span>
+        <BpkText tagName="span" textStyle={TEXT_STYLES.caption}>Internal design prototyping</BpkText>
+        <BpkText tagName="span" textStyle={TEXT_STYLES.caption}>{new Date().getFullYear()}</BpkText>
       </footer>
     </div>
   )

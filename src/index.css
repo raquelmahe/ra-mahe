@@ -12,20 +12,10 @@
   --amber-dim: #f0a50033;
   --text:      #e8e4d4;
   --muted:     #6b6858;
-  --mono:      'JetBrains Mono', monospace;
-  --serif:     'Playfair Display', Georgia, serif;
 }
 
 html, body, #root {
   height: 100%;
-}
-
-body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: var(--mono);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 /* Noise texture overlay */
