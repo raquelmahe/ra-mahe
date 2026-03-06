@@ -5,6 +5,18 @@ import BpkPanel from '@skyscanner/backpack-web/bpk-component-panel'
 import BpkText, { TEXT_COLORS, TEXT_STYLES } from '@skyscanner/backpack-web/bpk-component-text'
 import './Home.scss'
 import { BpkSpacing, BpkVStack } from '@skyscanner/backpack-web/bpk-component-layout'
+import Terminal, { type TerminalLine } from '../components/Terminal'
+
+const TERMINAL_LINES_SHORT: TerminalLine[] = [
+  { type: 'prompt', text: 'claude', command: '/make' },
+  { type: 'output', text: 'Describe your idea…' },
+]
+
+const TERMINAL_LINES_FULL: TerminalLine[] = [
+  ...TERMINAL_LINES_SHORT,
+  { type: 'muted', text: 'e.g. "A hotel search results' },
+  { type: 'muted', text: 'page with filters and map"' },
+]
 
 interface ProjectMeta {
   slug: string
@@ -71,26 +83,7 @@ function InstructionsPanel() {
         add it to this gallery automatically.
         </BpkText>
         
-        <div className="instructions-terminal">
-        <div className="terminal-dots">
-          <span className="dot red" />
-          <span className="dot yellow" />
-          <span className="dot green" />
-        </div>
-        <div className="terminal-line">
-          <span className="t-prompt">claude&nbsp;</span>
-          <span className="t-cmd">/make</span>
-        </div>
-        <div className="terminal-line">
-          <span className="t-out">  Describe your idea…</span>
-        </div>
-        <div className="terminal-line">
-          <span className="t-muted">  e.g. "A hotel search results</span>
-        </div>
-        <div className="terminal-line">
-          <span className="t-muted">  page with filters and map"</span>
-        </div>
-      </div>
+        <Terminal lines={TERMINAL_LINES_FULL} />
       </BpkVStack>
       
       <div className="instructions-tips">
@@ -142,20 +135,7 @@ export default function Home() {
               Open Claude in this repo and run <code>/make</code> to build
               your first Backpack-powered prototype.
             </BpkText>
-            <div className="empty-terminal">
-              <div className="terminal-dots">
-                <span className="dot red" />
-                <span className="dot yellow" />
-                <span className="dot green" />
-              </div>
-              <div className="terminal-line">
-                <span className="t-prompt">claude&nbsp;</span>
-                <span className="t-cmd">/make</span>
-              </div>
-              <div className="terminal-line">
-                <span className="t-out">  Describe your idea…</span>
-              </div>
-            </div>
+            <Terminal lines={TERMINAL_LINES_SHORT} />
           </div>
         ) : (
           <div className="ideas-layout">

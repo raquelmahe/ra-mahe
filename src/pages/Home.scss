@@ -1,28 +1,18 @@
 @use '@skyscanner/backpack-web/bpk-mixins/tokens' as tokens;
 
-/* ─── Token aliases ────────────────────────────────────────────────────────── */
+/* ─── Base ────────────────────────────────────────────────────────────────── */
 .home {
-  --sky-blue:    #{tokens.$bpk-surface-hero-day};
-  --sky-navy:    #{tokens.$bpk-surface-contrast-day};
-  --sky-canvas:  #{tokens.$bpk-surface-low-contrast-day};
-  --sky-surface: #{tokens.$bpk-surface-default-day};
-  --sky-border:  #{tokens.$bpk-line-day};
-  --sky-text:    #{tokens.$bpk-text-primary-day};
-  --sky-muted:   #{tokens.$bpk-text-secondary-day};
-  --sky-subtle:  #{tokens.$bpk-surface-subtle-day};
-  --sky-green:   #{tokens.$bpk-status-success-spot-day};
-
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  background: var(--sky-canvas);
-  color: var(--sky-text);
+  background: tokens.$bpk-surface-low-contrast-day;
+  color: tokens.$bpk-text-primary-day;
   font-family: tokens.$bpk-font-family-base;
 }
 
 /* ─── Header ──────────────────────────────────────────────────────────────── */
 .home-header {
-  background: var(--sky-navy);
+  background: tokens.$bpk-surface-contrast-day;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,7 +35,7 @@
   width: 30px;
   height: 30px;
   border-radius: tokens.$bpk-border-radius-sm;
-  background: var(--sky-blue);
+  background: tokens.$bpk-surface-hero-day;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,8 +56,8 @@
   width: 6px;
   height: 6px;
   border-radius: tokens.$bpk-border-radius-full;
-  background: var(--sky-green);
-  box-shadow: 0 0 6px var(--sky-green);
+  background: tokens.$bpk-status-success-spot-day;
+  box-shadow: 0 0 6px tokens.$bpk-status-success-spot-day;
   animation: pulse 2.5s ease-in-out infinite;
 }
 
@@ -93,19 +83,15 @@
   width: 64px;
   height: 64px;
   border-radius: tokens.$bpk-border-radius-md;
-  background: var(--sky-subtle);
-  color: var(--sky-blue);
+  background: tokens.$bpk-surface-subtle-day;
+  color: tokens.$bpk-surface-hero-day;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: tokens.bpk-spacing-xl();
 }
 
-.empty-terminal {
-  background: var(--sky-navy);
-  border-radius: tokens.$bpk-border-radius-sm;
-  padding: tokens.bpk-spacing-lg() tokens.bpk-spacing-xl();
-  text-align: left;
+.home-empty .terminal {
   min-width: 300px;
   box-shadow: 0 4px 24px rgba(5, 32, 60, 0.12);
 }
@@ -185,7 +171,7 @@
   align-items: center;
   justify-content: space-between;
   padding-top: tokens.bpk-spacing-md();
-  border-top: tokens.$bpk-border-size-sm solid var(--sky-border);
+  border-top: tokens.$bpk-border-size-sm solid tokens.$bpk-line-day;
 }
 
 /* ─── Instructions panel ──────────────────────────────────────────────────── */
@@ -205,25 +191,23 @@
   align-items: center;
   gap: tokens.bpk-spacing-md();
   padding: tokens.bpk-spacing-lg() tokens.bpk-spacing-lg();
-  background: var(--sky-navy);
+  background: tokens.$bpk-surface-contrast-day;
 }
 
 .instructions-icon {
-  color: var(--sky-blue);
+  color: tokens.$bpk-surface-hero-day;
   font-size: tokens.$bpk-font-size-sm;
 }
 
-.instructions-terminal {
+.instructions-panel .terminal {
   width: 100%;
   background: tokens.$bpk-core-primary-day;
-  border-radius: tokens.$bpk-border-radius-sm;
-  padding: tokens.bpk-spacing-lg() tokens.bpk-spacing-base();
 }
 
 /* ─── Tips ────────────────────────────────────────────────────────────────── */
 .instructions-tips {
   padding: tokens.bpk-spacing-lg() tokens.bpk-spacing-lg() tokens.bpk-spacing-lg();
-  border-top: tokens.$bpk-border-size-sm solid var(--sky-border);
+  border-top: tokens.$bpk-border-size-sm solid tokens.$bpk-line-day;
   margin-top: tokens.bpk-spacing-lg();
 }
 
@@ -237,7 +221,7 @@
 .tips-list li {
   font-size: tokens.$bpk-font-size-xs;
   line-height: tokens.$bpk-line-height-xs;
-  color: var(--sky-muted);
+  color: tokens.$bpk-text-secondary-day;
   padding-left: tokens.bpk-spacing-base();
   position: relative;
 }
@@ -246,42 +230,14 @@
   content: '·';
   position: absolute;
   left: 0;
-  color: var(--sky-blue);
+  color: tokens.$bpk-surface-hero-day;
   font-weight: 700;
 }
 
 .tips-list li em {
   font-style: normal;
-  color: var(--sky-navy);
+  color: tokens.$bpk-surface-contrast-day;
 }
-
-/* ─── Shared terminal styles ──────────────────────────────────────────────── */
-.terminal-dots {
-  display: flex;
-  gap: tokens.bpk-spacing-sm();
-  margin-bottom: tokens.bpk-spacing-md();
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: tokens.$bpk-border-radius-full;
-}
-
-.dot.red    { background: #ff5f57; }
-.dot.yellow { background: #febc2e; }
-.dot.green  { background: #28c840; }
-
-.terminal-line {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: tokens.$bpk-font-size-xs;
-  line-height: tokens.$bpk-line-height-base;
-}
-
-.t-prompt { color: rgba(255, 255, 255, 0.35); }
-.t-cmd    { color: #7ab4ff; font-weight: 600; }
-.t-out    { color: #4ade80; }
-.t-muted  { color: rgba(255, 255, 255, 0.3); }
 
 /* ─── Footer ──────────────────────────────────────────────────────────────── */
 .home-footer {
@@ -289,16 +245,16 @@
   align-items: center;
   gap: tokens.bpk-spacing-base();
   padding: tokens.bpk-spacing-base() tokens.bpk-spacing-xl();
-  border-top: tokens.$bpk-border-size-sm solid var(--sky-border);
+  border-top: tokens.$bpk-border-size-sm solid tokens.$bpk-line-day;
   font-size: tokens.$bpk-font-size-xs;
-  color: var(--sky-muted);
-  background: var(--sky-surface);
+  color: tokens.$bpk-text-secondary-day;
+  background: tokens.$bpk-surface-default-day;
 }
 
 .footer-divider {
   width: tokens.$bpk-border-size-sm;
   height: 12px;
-  background: var(--sky-border);
+  background: tokens.$bpk-line-day;
 }
 
 /* ─── Animations ──────────────────────────────────────────────────────────── */

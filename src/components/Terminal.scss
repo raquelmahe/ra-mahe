@@ -1,0 +1,35 @@
+@use '@skyscanner/backpack-web/bpk-mixins/tokens' as tokens;
+
+.terminal {
+  background: tokens.$bpk-surface-contrast-day;
+  border-radius: tokens.$bpk-border-radius-sm;
+  padding: tokens.bpk-spacing-lg() tokens.bpk-spacing-xl();
+  text-align: left;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: tokens.bpk-spacing-sm();
+  margin-bottom: tokens.bpk-spacing-md();
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: tokens.$bpk-border-radius-full;
+}
+
+.dot.red    { background: #ff5f57; }
+.dot.yellow { background: #febc2e; }
+.dot.green  { background: #28c840; }
+
+.terminal-line {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: tokens.$bpk-font-size-xs;
+  line-height: tokens.$bpk-line-height-base;
+}
+
+.t-prompt { color: rgba(255, 255, 255, 0.35); }
+.t-cmd    { color: #7ab4ff; font-weight: 600; }
+.t-out    { color: #4ade80; }
+.t-muted  { color: rgba(255, 255, 255, 0.3); }
