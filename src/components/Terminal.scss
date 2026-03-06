@@ -19,9 +19,9 @@
   border-radius: tokens.$bpk-border-radius-full;
 }
 
-.dot.red    { background: #ff5f57; }
-.dot.yellow { background: #febc2e; }
-.dot.green  { background: #28c840; }
+.dot.red    { background: tokens.$bpk-status-danger-spot; }
+.dot.yellow { background: tokens.$bpk-status-warning-spot; }
+.dot.green  { background: tokens.$bpk-status-success-spot; }
 
 .terminal-line {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
