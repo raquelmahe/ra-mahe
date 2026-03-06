@@ -85,13 +85,13 @@ src/styles/banner.scss
 ### Scan current project
 
 ```bash
-backpack-cli lint
+backpack-cli lint --format json
 ```
 
 ### Scan a specific directory
 
 ```bash
-backpack-cli lint --path src/components
+backpack-cli lint --path src/components --format json
 ```
 
 ### Get JSON output for CI/automation
@@ -103,14 +103,14 @@ backpack-cli lint --format json
 ### Limit to high-confidence suggestions only
 
 ```bash
-backpack-cli lint --threshold 0.5 --max-suggestions 1
+backpack-cli lint --threshold 0.5 --max-suggestions 1 --format json
 ```
 
 ### Use in CI pipeline
 
 ```bash
 # Fails with exit code 1 if deprecated tokens are found
-backpack-cli lint --path src --format json > lint-report.json
+backpack-cli lint --path src --format json
 ```
 
 ## Manual replacements

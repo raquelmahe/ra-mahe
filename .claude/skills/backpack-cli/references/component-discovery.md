@@ -32,7 +32,7 @@ Components are organised into these categories:
 ### Find components by keyword
 
 ```bash
-backpack-cli ls --search button
+backpack-cli ls --search button --json
 # Matches against name, description, and tags
 ```
 
@@ -45,7 +45,7 @@ backpack-cli ls --category navigation --json
 ### Find deprecated components
 
 ```bash
-backpack-cli ls --status deprecated --verbose
+backpack-cli ls --status deprecated --json
 ```
 
 ### Include sub-components
@@ -53,7 +53,7 @@ backpack-cli ls --status deprecated --verbose
 By default, sub-components (e.g., `BpkAccordionItem`) are excluded. Include them with:
 
 ```bash
-backpack-cli ls --search accordion --sub
+backpack-cli ls --search accordion --sub --json
 ```
 
 Or show only sub-components:
