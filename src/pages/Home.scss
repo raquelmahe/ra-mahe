@@ -199,11 +199,6 @@
   font-size: tokens.$bpk-font-size-sm;
 }
 
-.instructions-panel .terminal {
-  width: 100%;
-  background: tokens.$bpk-core-primary-day;
-}
-
 /* ─── Tips ────────────────────────────────────────────────────────────────── */
 .instructions-tips {
   padding: tokens.bpk-spacing-lg() tokens.bpk-spacing-lg() tokens.bpk-spacing-lg();
