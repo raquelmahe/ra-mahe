@@ -46,7 +46,7 @@ backpack-cli icons --size sm --json
 ### Get import paths and usage examples
 
 ```bash
-backpack-cli icons --search flight --verbose
+backpack-cli icons --search flight --json
 ```
 
 Verbose output shows all available sizes with their import paths, plus a ready-to-use import statement:

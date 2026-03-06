@@ -67,7 +67,7 @@ This finds all components that have a prop matching the search query.
 ### Verbose output with full details
 
 ```bash
-backpack-cli props BpkButton --verbose
+backpack-cli props BpkButton --json
 ```
 
 Shows prop signatures with type, required marker (`*`), default value, description, and expanded enum values.

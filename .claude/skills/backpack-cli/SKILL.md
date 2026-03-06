@@ -10,17 +10,17 @@ allowed-tools: Bash(backpack-cli:*)
 
 ```bash
 # Find components by name
-backpack-cli ls --search button
+backpack-cli ls --search button --json
 # Inspect a component's props
-backpack-cli props BpkButton --verbose
+backpack-cli props BpkButton --json
 # Browse icons
-backpack-cli icons --search flight --verbose
+backpack-cli icons --search flight --json
 # Look up a design token
-backpack-cli token canvasDay
+backpack-cli token canvasDay --json
 # Browse tokens by category
-backpack-cli tokens --category spacings --verbose
+backpack-cli tokens --category spacings --json
 # Scan for deprecated token usage
-backpack-cli lint --path src
+backpack-cli lint --path src --format json
 # Update the local cache from the Backpack repository
 backpack-cli update
 ```
@@ -43,13 +43,67 @@ backpack-cli update
 When a user asks about Backpack components, follow this sequence:
 
 1. **Search** — Find matching components with `backpack-cli ls --search "<query>" --json`
-2. **Inspect** — Get prop details with `backpack-cli props <ComponentName> --verbose --json`
+2. **Inspect** — Get prop details with `backpack-cli props <ComponentName> --json`
 3. **Icons** — Find icons with `backpack-cli icons --search "<query>" --json`
-4. **Tokens** — Look up design tokens with `backpack-cli token <name>` or browse with `backpack-cli tokens --category <cat> --json`
+4. **Tokens** — Look up design tokens with `backpack-cli token <name> --json` or browse with `backpack-cli tokens --category <cat> --json`
 5. **Lint** — Scan for deprecated tokens with `backpack-cli lint --path <dir> --format json`
 6. **Update** — If data seems stale or a component/icon is missing, suggest `backpack-cli update`
 
-Prefer `--json` output when processing results programmatically.
+Always use `--json` (or `--format json` for lint) to get structured output. Parse the JSON to extract exactly the fields you need.
+
+## Working with JSON output
+
+All commands output JSON arrays or objects. Pipe through `jq` to filter and extract fields.
+
+### Components and props
+
+```bash
+# Get just component names
+backpack-cli ls --search button --json | jq -r '.[].name'
+# Get import paths for matching components
+backpack-cli ls --search button --json | jq -r '.[].importPath'
+# Get required prop names and types for a component
+backpack-cli props BpkButton --required --json | jq '.[].props | map({name, type})'
+# Find which components have an onClick prop
+backpack-cli props --search onClick --json | jq -r '.[].name'
+# Get default values for optional props
+backpack-cli props BpkButton --optional --json | jq '.[].props | map(select(.defaultValue != null)) | map({name, defaultValue})'
+```
+
+### Icons
+
+```bash
+# Get the sm import path for a specific icon
+backpack-cli icons --search flight --json | jq -r '.[0].importPaths.sm'
+# List icon names available in lg size
+backpack-cli icons --size lg --json | jq -r '.[].name'
+```
+
+### Tokens
+
+```bash
+# Get a token's resolved value
+backpack-cli token canvasDay --json | jq -r '.value'
+# Get the JS import name for a token
+backpack-cli token canvasDay --json | jq -r '.formats.js'
+# Get the SCSS usage for a token
+backpack-cli token canvasDay --json | jq -r '.formats.scss'
+# List all spacing token values
+backpack-cli tokens --category spacings --json | jq 'map({name: .formats.js, value})'
+# Find tokens by value
+backpack-cli tokens --type color --json | jq 'map(select(.value == "rgb(0, 98, 227)"))'
+```
+
+### Lint
+
+```bash
+# Get unique deprecated tokens found
+backpack-cli lint --path src --format json | jq -r '[.[].deprecatedToken] | unique | .[]'
+# Get files with deprecated token usage
+backpack-cli lint --path src --format json | jq -r '[.[].filePath] | unique | .[]'
+# Get top suggestion per finding
+backpack-cli lint --path src --format json | jq 'map({file: .filePath, line, deprecated: .deprecatedToken, replacement: .suggestions[0].token})'
+```
 
 ## Component discovery
 
@@ -65,7 +119,7 @@ backpack-cli ls --search accordion --sub --json
 # Show only sub-components
 backpack-cli ls --only-sub --json
 # Verbose table output
-backpack-cli ls --search card --verbose
+backpack-cli ls --search card --json
 ```
 
 **Categories**: action, calendar, card, chip, data-display, feedback, form, layout, map, media, navigation, overlay, skeleton, utility
@@ -84,7 +138,7 @@ backpack-cli props BpkButton --optional --json
 # Search across all components for a prop name
 backpack-cli props --search onClick --json
 # Verbose output with types, descriptions, and enum values
-backpack-cli props BpkButton --verbose
+backpack-cli props BpkButton --json
 ```
 
 Each prop includes: `name`, `type`, `required`, `defaultValue`, `description`, `enumValues`.
@@ -97,7 +151,7 @@ backpack-cli icons --search flight --json
 # Filter by size
 backpack-cli icons --size sm --json
 # Verbose output with import paths and usage examples
-backpack-cli icons --search arrow --verbose
+backpack-cli icons --search arrow --json
 # List all icons
 backpack-cli icons --json
 ```
@@ -108,9 +162,9 @@ Each icon includes: `name`, `sizes` (sm, lg, xxxl), `importPaths` (keyed by size
 
 ```bash
 # Quick single-token lookup (accepts JS, SCSS, or raw name)
-backpack-cli token canvasDay
-backpack-cli token $bpk-canvas-day
-backpack-cli token CANVAS_DAY
+backpack-cli token canvasDay --json
+backpack-cli token $bpk-canvas-day --json
+backpack-cli token CANVAS_DAY --json
 # Get just the value (for scripting)
 backpack-cli token spacingLg --format value
 # Get the JS import statement
@@ -125,13 +179,13 @@ backpack-cli token canvasDay --format scss
 # Browse all public day-mode tokens
 backpack-cli tokens --json
 # Filter by category
-backpack-cli tokens --category spacings --verbose
+backpack-cli tokens --category spacings --json
 # Filter by type
 backpack-cli tokens --type color --json
 # Search by name or value
 backpack-cli tokens --search elevation --json
 # List available categories
-backpack-cli tokens --categories
+backpack-cli tokens --categories --json
 # Include private tokens (shows warning)
 backpack-cli tokens --private --json
 # Show only private tokens
@@ -150,13 +204,13 @@ Each token includes: `name`, `value`, `type`, `category`, `isPrivate`, `isNight`
 
 ```bash
 # Scan current directory for deprecated color tokens
-backpack-cli lint
+backpack-cli lint --format json
 # Scan a specific directory
-backpack-cli lint --path src/components
+backpack-cli lint --path src/components --format json
 # JSON output for CI/automation
 backpack-cli lint --format json
 # Limit suggestions and filter by confidence
-backpack-cli lint --max-suggestions 1 --threshold 0.5
+backpack-cli lint --max-suggestions 1 --threshold 0.5 --format json
 ```
 
 The lint command detects deprecated color tokens in JS/TS/SCSS/CSS/LESS files and suggests perceptually-similar replacements using OKLab color distance. It considers both day and night mode values when scoring paired tokens. Returns exit code 1 when findings are detected (CI-friendly). Manual replacements can be defined in `artifacts/lint-replacements.json` to override auto-suggestions for specific tokens.
@@ -172,25 +226,12 @@ backpack-cli update --dry-run
 
 The update command clones the Backpack repository and the backpack-foundations repository, extracts component metadata, prop types, icon files, and design tokens, and regenerates the local cache.
 
-## Import style: default vs named exports
-
-The CLI's `ls` and `props` commands report `importPath` but do not indicate whether the primary component is a default or named export. The actual pattern:
-
-- **Default export** (no braces) — most components: `BpkButton`, `BpkText`, `BpkCard`, `BpkBadge`, `BpkModal`, `BpkRating`, `BpkSectionHeader`, and most others. Constants are **additional named exports** alongside the default:
-  ```tsx
-  import BpkButton, { BUTTON_TYPES, SIZE_TYPES } from '@skyscanner/backpack-web/bpk-component-button';
-  import BpkBadge, { BADGE_TYPES } from '@skyscanner/backpack-web/bpk-component-badge';
-  import BpkRating, { RATING_SIZES, RATING_SCALES } from '@skyscanner/backpack-web/bpk-component-rating';
-  ```
-- **Named export only** (braces required) — exceptions: `BpkProvider`, `BpkFlex`, `BpkStack`, `BpkBox`, `BpkGrid` (all from `bpk-component-layout`); `BpkSpinner`, `BpkLargeSpinner` (from `bpk-component-spinner`).
-- **`bpk-component-chip`** — `BpkSelectableChip` is the default; `BpkDismissibleChip`, `BpkDropdownChip`, `BpkIconChip` are named.
-
 ## BpkProvider
 
 `BpkProvider` must wrap the top-level component in your application. Use it exactly once, as high as possible in the component tree. All Backpack layout components (e.g., `BpkPageContainer`, `BpkGridContainer`, `BpkGridRow`, `BpkGridColumn`) require `BpkProvider` to be present above them. Do not nest multiple `BpkProvider` instances — a single root-level wrapper is correct.
 
 ```tsx
-import { BpkProvider } from '@skyscanner/backpack-web/bpk-component-layout';
+import BpkProvider from '@skyscanner/backpack-web/bpk-component-provider';
 
 function App() {
   return (
@@ -213,14 +254,14 @@ function App() {
 | Search for a prop across components | `backpack-cli props --search className --json` |
 | Find an icon by name | `backpack-cli icons --search flight --json` |
 | List small icons only | `backpack-cli icons --size sm --json` |
-| Get icon import path and usage | `backpack-cli icons --search flight --verbose` |
-| Look up a token value and usage | `backpack-cli token canvasDay` |
-| Browse spacing tokens | `backpack-cli tokens --category spacings --verbose` |
+| Get icon import path and usage | `backpack-cli icons --search flight --json` |
+| Look up a token value and usage | `backpack-cli token canvasDay --json` |
+| Browse spacing tokens | `backpack-cli tokens --category spacings --json` |
 | List all color tokens | `backpack-cli tokens --type color --json` |
 | Get a token's SCSS usage | `backpack-cli token spacingLg --format scss` |
-| List token categories | `backpack-cli tokens --categories` |
+| List token categories | `backpack-cli tokens --categories --json` |
 | Scan for deprecated tokens | `backpack-cli lint --path src --format json` |
-| Get replacement suggestions | `backpack-cli lint --path src --max-suggestions 3` |
+| Get replacement suggestions | `backpack-cli lint --path src --max-suggestions 3 --format json` |
 | CI lint check | `backpack-cli lint --format json` |
 | Update stale cache | `backpack-cli update` |
 

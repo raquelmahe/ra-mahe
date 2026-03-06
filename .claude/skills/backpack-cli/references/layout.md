@@ -208,7 +208,7 @@ Shared by: BpkBox, BpkStack, BpkFlex, BpkGrid, BpkGridItem
 
 ## Tips
 
-- Look up available spacing and sizing tokens with `backpack-cli tokens --category spacings --verbose`
-- Inspect all props for a layout component with `backpack-cli props BpkStack --verbose`
+- Look up available spacing and sizing tokens with `backpack-cli tokens --category spacings --json`
+- Inspect all props for a layout component with `backpack-cli props BpkStack --json`
 - Find layout components with `backpack-cli ls --category layout --json`
 - Most layout props are optional. Start with the semantic props (`direction`, `gap`, `align`) and add spacing/sizing only as needed.
