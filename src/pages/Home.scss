@@ -108,20 +108,6 @@
   margin-bottom: tokens.bpk-spacing-xl();
 }
 
-.empty-heading {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--sky-navy);
-  margin-bottom: tokens.bpk-spacing-base();
-}
-
-.empty-heading em {
-  font-style: italic;
-  color: var(--sky-blue);
-}
-
 .empty-sub {
   font-size: tokens.$bpk-font-size-sm;
   line-height: 1.7;
