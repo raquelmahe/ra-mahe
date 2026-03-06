@@ -214,8 +214,8 @@
 }
 
 .instructions-terminal {
-  margin: tokens.bpk-spacing-lg() tokens.bpk-spacing-lg() 0;
-  background: var(--sky-navy);
+  width: 100%;
+  background: tokens.$bpk-core-primary-day;
   border-radius: tokens.$bpk-border-radius-sm;
   padding: tokens.bpk-spacing-lg() tokens.bpk-spacing-base();
 }

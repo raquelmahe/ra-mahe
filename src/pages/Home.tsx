@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BpkCard from '@skyscanner/backpack-web/bpk-component-card'
 import BpkPanel from '@skyscanner/backpack-web/bpk-component-panel'
-import BpkText, { TEXT_STYLES } from '@skyscanner/backpack-web/bpk-component-text'
+import BpkText, { TEXT_COLORS, TEXT_STYLES } from '@skyscanner/backpack-web/bpk-component-text'
 import './Home.scss'
+import { BpkSpacing, BpkVStack } from '@skyscanner/backpack-web/bpk-component-layout'
 
 interface ProjectMeta {
   slug: string
@@ -59,17 +60,18 @@ function InstructionsPanel() {
     <BpkPanel padded={false} className="instructions-panel">
       <div className="instructions-header">
         <span className="instructions-icon">✦</span>
-        <BpkText tagName="span" textStyle={TEXT_STYLES.label1}>Add a new idea</BpkText>
+        <BpkText tagName="span" textStyle={TEXT_STYLES.label1} color={TEXT_COLORS.textOnDark}>Add a new idea</BpkText>
       </div>
 
-      <BpkText tagName="p" textStyle={TEXT_STYLES.bodyDefault}>
+      <BpkVStack padding={BpkSpacing.Base}>
+        <BpkText tagName="p" textStyle={TEXT_STYLES.bodyDefault}>
         Open Claude in this repo and run <code>/make</code>. Describe
         your idea in plain English — Claude will discover the right
         Backpack components, generate a self-contained prototype, and
         add it to this gallery automatically.
-      </BpkText>
-
-      <div className="instructions-terminal">
+        </BpkText>
+        
+        <div className="instructions-terminal">
         <div className="terminal-dots">
           <span className="dot red" />
           <span className="dot yellow" />
@@ -89,7 +91,8 @@ function InstructionsPanel() {
           <span className="t-muted">  page with filters and map"</span>
         </div>
       </div>
-
+      </BpkVStack>
+      
       <div className="instructions-tips">
         <BpkText tagName="p" textStyle={TEXT_STYLES.label2}>Tips for great results</BpkText>
         <ul className="tips-list">
