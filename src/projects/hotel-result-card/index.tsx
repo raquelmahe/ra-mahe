@@ -14,6 +14,7 @@ import {
   colorPanjin,
   textSuccessDay,
   corePrimaryDay,
+  lineDay,
 } from '@skyscanner/bpk-foundations-web/tokens/base.es6';
 
 // Figma image assets
@@ -90,8 +91,8 @@ export default function HotelResultCard() {
             {/* ── Main 3-column body ── */}
             <div style={{ display: 'flex', alignItems: 'stretch' }}>
 
-              {/* Col 1 — Image */}
-              <div style={{ flexShrink: 0, width: '220px', minHeight: '264px' }}>
+              {/* Col 1 — Image (inset: left + top, per Figma "Image ←Left ↑Top") */}
+              <div style={{ flexShrink: 0, width: '220px', minHeight: '264px', paddingLeft: '8px', paddingTop: '8px' }}>
                 <img
                   src={hotelImage}
                   alt="Hotel Aiguaclara, Begur, Costa Brava"
@@ -99,7 +100,7 @@ export default function HotelResultCard() {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    borderRadius: '12px 0 0 0',
+                    borderRadius: '12px',
                     display: 'block',
                   }}
                 />
@@ -115,7 +116,7 @@ export default function HotelResultCard() {
                   gap: '0.75rem',
                 }}
               >
-                <BpkText textStyle={TEXT_STYLES.heading3} tagName="h2">
+                <BpkText textStyle={TEXT_STYLES.heading2} tagName="h2">
                   Hotel Aiguaclara
                 </BpkText>
 
@@ -186,7 +187,7 @@ export default function HotelResultCard() {
                 style={{
                   width: '200px',
                   flexShrink: 0,
-                  borderLeft: `1px solid ${surfaceLowContrastDay}`,
+                  borderLeft: `1px solid ${lineDay}`,
                   padding: '1rem',
                   display: 'flex',
                   flexDirection: 'column',

@@ -1,0 +1,6 @@
+{
+  "slug": "price-chart-card",
+  "title": "Price Chart Card",
+  "description": "BpkCard containing a BpkBarchart showing flight prices by day, with interactive bar selection and a price badge tooltip.",
+  "createdAt": "2026-03-20T00:00:00.000Z"
+}
